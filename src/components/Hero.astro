@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import { hero, cta } from '../content/site';
+import AssetPreview from './AssetPreview.astro';
+---
+
+<section id="top" class="relative overflow-hidden">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10">
+    <div
+      class="absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-[130px]"
+    >
+    </div>
+    <div class="grid-backdrop absolute inset-0"></div>
+  </div>
+
+  <div
+    class="mx-auto grid max-w-[1200px] grid-cols-1 items-center gap-12 px-4 pt-16 pb-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16 lg:pt-24 lg:pb-28"
+  >
+    <div data-reveal>
+      <h1
+        class="font-sans text-4xl leading-[1.12] font-semibold tracking-tight text-ink md:text-5xl"
+      >
+        {hero.headline[0]}<br class="hidden md:block" />{hero.headline[1]}
+      </h1>
+      <p class="mt-6 max-w-[42ch] text-base leading-relaxed text-muted md:text-lg">
+        {hero.sub}
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a
+          href="#sim"
+          class="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.98]"
+        >
+          {cta.sim}
+          <Icon name="ph:arrow-right" class="size-4" />
+        </a>
+        <a
+          href="#calc"
+          class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-panel-2"
+        >
+          {cta.calc}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative" style="--reveal-delay:120ms" data-reveal>
+      <AssetPreview />
+    </div>
+  </div>
+</section>

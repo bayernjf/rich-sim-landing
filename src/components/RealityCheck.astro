@@ -1,0 +1,28 @@
+---
+import { reality } from '../content/site';
+---
+
+<section class="border-y border-line bg-panel-2/40">
+  <div class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
+    <div class="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-16">
+      <div data-reveal>
+        <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+          {reality.title}
+        </h2>
+        <p class="mt-4 max-w-[46ch] text-base leading-relaxed text-muted">{reality.lead}</p>
+        <p class="mt-5 text-xs text-muted">{reality.note}</p>
+      </div>
+
+      <ul class="divide-y divide-line overflow-hidden rounded-2xl border border-line bg-panel" data-reveal>
+        {
+          reality.rows.map((row) => (
+            <li class="flex flex-col gap-1 p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+              <span class="text-sm text-ink">{row.item}</span>
+              <span class="num text-sm text-accent">{row.cost}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

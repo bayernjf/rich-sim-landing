@@ -1,0 +1,161 @@
+---
+import { Icon } from 'astro-icon/components';
+import { calc } from '../content/site';
+
+const fields = [
+  { name: 'income', label: calc.fields.income, value: 15000 },
+  { name: 'expense', label: calc.fields.expense, value: 9000 },
+  { name: 'savings', label: calc.fields.savings, value: 80000 },
+  { name: 'target', label: calc.fields.target, value: 3000000 },
+];
+---
+
+<section id="calc" class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
+  <div class="max-w-[60ch]" data-reveal>
+    <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+      {calc.title}
+    </h2>
+    <p class="mt-4 text-base leading-relaxed text-muted">{calc.lead}</p>
+  </div>
+
+  <div
+    class="mt-12 grid gap-6 rounded-2xl border border-line bg-panel p-6 lg:grid-cols-2 lg:gap-10 lg:p-8"
+    data-reveal
+  >
+    <form id="calc-form" class="space-y-5" novalidate>
+      {
+        fields.map((field) => (
+          <div class="flex flex-col gap-2">
+            <label for={`calc-${field.name}`} class="text-sm font-medium text-ink">
+              {field.label}
+              <span class="ml-1 text-xs text-muted">({calc.unit})</span>
+            </label>
+            <input
+              id={`calc-${field.name}`}
+              name={field.name}
+              type="number"
+              min="0"
+              step="1000"
+              inputmode="decimal"
+              value={field.value}
+              class="num w-full rounded-xl border border-line bg-panel-2 px-4 py-3 text-base text-ink placeholder:text-muted focus:border-accent focus:outline-none"
+            />
+          </div>
+        ))
+      }
+      <button
+        type="submit"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.99]"
+      >
+        {calc.submit}
+        <Icon name="ph:arrow-right" class="size-4" />
+      </button>
+    </form>
+
+    <div
+      id="calc-result"
+      aria-live="polite"
+      class="flex min-h-[240px] flex-col justify-center rounded-xl border border-line bg-panel-2 p-6"
+    >
+      <p class="text-sm text-muted">{calc.empty}</p>
+    </div>
+  </div>
+
+  <p class="mt-4 text-xs leading-relaxed text-muted">{calc.assumption}</p>
+  <p class="mt-1 text-xs leading-relaxed text-muted">{calc.disclaimer}</p>
+</section>
+
+<script type="application/json" id="calc-labels" set:html={JSON.stringify(calc.labels)} />
+
+<script>
+  type Result =
+    | { status: 'ok'; years: number; monthly: number; rate: number }
+    | { status: 'negative' | 'impossible' | 'done'; monthly: number; rate: number };
+
+  const labelsEl = document.getElementById('calc-labels');
+  const L = labelsEl ? JSON.parse(labelsEl.textContent ?? '{}') : {};
+  const form = document.getElementById('calc-form') as HTMLFormElement | null;
+  const out = document.getElementById('calc-result');
+  const RATE = 0.04;
+
+  const money = (n: number) => '¥ ' + Math.round(n).toLocaleString('zh-CN');
+
+  function compute(income: number, expense: number, savings: number, target: number): Result {
+    const monthly = income - expense;
+    const rate = income > 0 ? monthly / income : 0;
+    if (monthly <= 0) return { status: 'negative', monthly, rate };
+    if (savings >= target) return { status: 'done', monthly, rate };
+    const annual = monthly * 12;
+    let balance = savings;
+    for (let y = 1; y <= 60; y++) {
+      balance = balance * (1 + RATE) + annual;
+      if (balance >= target) return { status: 'ok', years: y, monthly, rate };
+    }
+    return { status: 'impossible', monthly, rate };
+  }
+
+  function stat(label: string, value: string) {
+    return `<div class="flex items-baseline justify-between gap-4 border-t border-line py-3">
+      <span class="text-sm text-muted">${label}</span>
+      <span class="num text-sm text-ink">${value}</span>
+    </div>`;
+  }
+
+  function render(result: Result) {
+    if (!out) return;
+    const pct = Math.round(result.rate * 100);
+
+    if (result.status === 'ok') {
+      out.innerHTML = `
+        <p class="text-sm text-muted">${L.years}</p>
+        <p class="num mt-2 text-5xl font-semibold text-accent">
+          ${result.years}<span class="ml-1 text-xl font-normal text-muted">${L.yearsUnit}</span>
+        </p>
+        <div class="mt-6">
+          ${stat(L.rate, pct + '%')}
+          ${stat(L.monthly, money(result.monthly))}
+        </div>`;
+      return;
+    }
+
+    const message =
+      result.status === 'negative' ? '你的月支出不低于月收入，当前没有净储蓄。'
+      : result.status === 'done' ? '这个目标已经在你的存款覆盖范围内。'
+      : '按当前储蓄速度，60 年内无法达到这个目标。';
+
+    out.innerHTML = `
+      <p class="text-sm leading-relaxed text-ink">${message}</p>
+      <div class="mt-6">
+        ${stat(L.rate, pct + '%')}
+        ${stat(L.monthly, money(result.monthly))}
+      </div>`;
+  }
+
+  function readForm(): { income: number; expense: number; savings: number; target: number } | null {
+    if (!form) return null;
+    const get = (name: string) => {
+      const input = form.elements.namedItem(name) as HTMLInputElement | null;
+      const value = Number(input?.value);
+      return Number.isFinite(value) && value >= 0 ? value : null;
+    };
+    const income = get('income');
+    const expense = get('expense');
+    const savings = get('savings');
+    const target = get('target');
+    if (income === null || expense === null || savings === null || target === null) return null;
+    return { income, expense, savings, target };
+  }
+
+  function run() {
+    const values = readForm();
+    if (!values) return;
+    render(compute(values.income, values.expense, values.savings, values.target));
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    run();
+  });
+  form?.addEventListener('input', run);
+  run();
+</script>

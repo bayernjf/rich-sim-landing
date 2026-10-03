@@ -1,0 +1,67 @@
+---
+import { Icon } from 'astro-icon/components';
+import { pricing } from '../content/site';
+---
+
+<section id="pricing" class="border-y border-line bg-panel-2/40">
+  <div class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
+    <div class="max-w-[60ch]" data-reveal>
+      <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+        {pricing.title}
+      </h2>
+      <p class="mt-3 text-sm text-muted">{pricing.note}</p>
+    </div>
+
+    <div class="mt-12 grid gap-5 lg:grid-cols-3">
+      {
+        pricing.tiers.map((tier, i) => (
+          <div
+            class:list={[
+              'flex flex-col rounded-2xl border p-7',
+              tier.highlight
+                ? 'border-accent/60 bg-panel shadow-[0_40px_80px_-50px_var(--c-accent)]'
+                : 'border-line bg-panel',
+            ]}
+            style={`--reveal-delay:${i * 70}ms`}
+            data-reveal
+          >
+            <div class="flex items-center justify-between">
+              <p class="font-sans text-base font-semibold text-ink">{tier.name}</p>
+              {tier.highlight && (
+                <span class="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent">
+                  长期使用
+                </span>
+              )}
+            </div>
+            <p class="mt-1 text-sm text-muted">{tier.desc}</p>
+            <p class="num mt-5 text-3xl font-semibold text-ink">
+              {tier.price}
+              <span class="text-sm font-normal text-muted">{tier.unit}</span>
+            </p>
+
+            <ul class="mt-6 flex-1 space-y-3">
+              {tier.features.map((feature) => (
+                <li class="flex items-start gap-2.5">
+                  <Icon name="ph:check" class="mt-0.5 size-4 shrink-0 text-accent" />
+                  <span class="text-sm text-muted">{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="#calc"
+              class:list={[
+                'mt-7 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-transform active:scale-[0.98]',
+                tier.highlight
+                  ? 'bg-accent text-on-accent hover:brightness-105'
+                  : 'border border-line-strong text-ink hover:bg-panel-2',
+              ]}
+            >
+              {tier.cta}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

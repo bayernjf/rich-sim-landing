@@ -1,0 +1,61 @@
+---
+import { Icon } from 'astro-icon/components';
+
+// Real component preview (not a fake screenshot): a mini asset dashboard.
+// Numbers are 示意 examples.
+const total = 9400; // 万
+const holdingCost = 168; // 万 / 年
+
+const assets = [
+  { label: '房产', value: 3200, pct: 34, color: 'var(--c-accent)' },
+  { label: '股权', value: 2800, pct: 30, color: 'var(--c-ink)' },
+  { label: '基金', value: 1900, pct: 20, color: 'var(--c-line-strong)' },
+  { label: '艺术品', value: 900, pct: 10, color: 'color-mix(in oklab, var(--c-line-strong) 60%, transparent)' },
+  { label: '现金', value: 600, pct: 6, color: 'color-mix(in oklab, var(--c-line-strong) 35%, transparent)' },
+];
+---
+
+<div
+  class="rounded-2xl border border-line bg-panel p-5 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.75)]"
+  data-reveal
+>
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-xs text-muted">净资产 · 示意</p>
+      <p class="num mt-1.5 text-3xl font-semibold text-ink">
+        ¥{total.toLocaleString()}<span class="ml-1 text-base font-normal text-muted">万</span>
+      </p>
+    </div>
+    <span
+      class="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent"
+    >
+      <Icon name="ph:trend-up" class="size-3.5" />
+      年 +6.2%
+    </span>
+  </div>
+
+  <div class="mt-5 flex h-2.5 w-full overflow-hidden rounded-full">
+    {
+      assets.map((asset) => (
+        <div style={`width:${asset.pct}%; background:${asset.color}`} title={asset.label}></div>
+      ))
+    }
+  </div>
+
+  <ul class="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
+    {
+      assets.map((asset) => (
+        <li class="flex items-center gap-2">
+          <span class="size-2 shrink-0 rounded-full" style={`background:${asset.color}`}></span>
+          <span class="text-xs text-muted">{asset.label}</span>
+          <span class="num ml-auto text-xs text-ink">{asset.value.toLocaleString()}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
+    <span class="text-xs text-muted">年持有成本</span>
+    <span class="num text-sm text-ink">¥{holdingCost} 万 / 年</span>
+  </div>
+</div>

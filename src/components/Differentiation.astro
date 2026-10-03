@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+import { why } from '../content/site';
+---
+
+<section id="why" class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
+  <div class="max-w-[60ch]" data-reveal>
+    <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
+      {why.title}
+    </h2>
+  </div>
+
+  <div class="mt-12 grid gap-4">
+    {
+      why.items.map((item, i) => (
+        <div
+          class:list={[
+            'flex flex-col gap-4 rounded-2xl border p-6 sm:flex-row sm:items-center sm:gap-8',
+            i === why.items.length - 1
+              ? 'border-accent/40 bg-accent-soft'
+              : 'border-line bg-panel',
+          ]}
+          style={`--reveal-delay:${i * 70}ms`}
+          data-reveal
+        >
+          <span class="grid size-11 shrink-0 place-items-center rounded-xl border border-line bg-panel-2 text-ink">
+            <Icon name={item.icon} class="size-5" />
+          </span>
+          <p class="font-sans text-lg font-semibold text-ink sm:w-52 sm:shrink-0">{item.title}</p>
+          <p class="text-sm leading-relaxed text-muted">{item.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

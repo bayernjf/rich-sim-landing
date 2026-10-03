@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+import { brand, footer } from '../content/site';
+---
+
+<footer class="border-t border-line">
+  <div
+    class="mx-auto flex max-w-[1200px] flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between"
+  >
+    <div class="flex items-center gap-2">
+      <span class="grid size-6 place-items-center rounded-md bg-accent text-on-accent">
+        <Icon name="ph:chart-line-up" class="size-3.5" />
+      </span>
+      <span class="font-sans text-sm font-semibold text-ink">{brand.name}</span>
+      <span class="text-xs tracking-wide text-muted">{brand.en}</span>
+    </div>
+
+    <ul class="flex flex-wrap gap-x-6 gap-y-2">
+      {
+        footer.links.map((link) => (
+          <li>
+            <a href={link.href} class="text-sm text-muted transition-colors hover:text-ink">
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="text-xs text-muted">{footer.note}</p>
+  </div>
+</footer>

@@ -5,8 +5,8 @@
  */
 
 export const brand = {
-  name: '财富沙盘',
-  en: 'WEALTH SANDBOX',
+  name: '财富模拟',
+  en: 'WEALTH SIM',
 };
 
 export const nav = [
@@ -134,7 +134,7 @@ export const why = {
     },
     {
       icon: 'ph:compass',
-      title: '财富沙盘',
+      title: '财富模拟',
       body: '先用幻想让你看见，再用你自己的数字让你算清。',
     },
   ],
@@ -204,7 +204,7 @@ export const disclaimer =
   '本产品是财商模拟教育工具，不是投资顾问。所有测算仅为模拟推演，不构成投资、职业或理财建议。财富受行业、机遇与宏观环境影响，请勿仅凭测算结果做重大决策。';
 
 export const footer = {
-  note: '财富沙盘是一个财商模拟教育工具。',
+  note: '财富模拟是一个财商模拟教育工具。',
   links: [
     { label: '富豪模拟', href: '#sim' },
     { label: '现实测算', href: '#calc' },

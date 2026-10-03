@@ -1,6 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { brand, nav, cta } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
+const openLabel = langOf(Astro.url.pathname) === 'zh' ? '打开菜单' : 'Open menu';
 ---
 
 <header class="sticky top-0 z-40 border-b border-line/70 bg-canvas/80 backdrop-blur-md">
@@ -9,12 +12,12 @@ import { brand, nav, cta } from '../content/site';
       <span class="grid size-7 place-items-center rounded-md bg-accent text-on-accent">
         <Icon name="ph:chart-line-up" class="size-4" />
       </span>
-      <span class="font-sans text-[15px] font-semibold tracking-tight text-ink">{brand.name}</span>
+      <span class="font-sans text-[15px] font-semibold tracking-tight text-ink">{t.brand.name}</span>
     </a>
 
     <ul class="hidden items-center gap-7 md:flex">
       {
-        nav.map((item) => (
+        t.nav.map((item) => (
           <li>
             <a href={item.href} class="text-sm text-muted transition-colors hover:text-ink">
               {item.label}
@@ -29,12 +32,12 @@ import { brand, nav, cta } from '../content/site';
         href="#calc"
         class="hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-canvas transition-transform hover:brightness-95 active:scale-[0.98] sm:inline-flex"
       >
-        {cta.calc}
+        {t.cta.calc}
       </a>
       <button
         type="button"
         id="nav-toggle"
-        aria-label="打开菜单"
+        aria-label={openLabel}
         aria-expanded="false"
         class="grid size-9 place-items-center rounded-lg border border-line text-ink md:hidden"
       >
@@ -46,7 +49,7 @@ import { brand, nav, cta } from '../content/site';
   <div id="nav-panel" hidden class="border-t border-line bg-canvas px-4 py-3 md:hidden">
     <ul class="flex flex-col">
       {
-        nav.map((item) => (
+        t.nav.map((item) => (
           <li>
             <a href={item.href} class="block py-3 text-sm text-muted hover:text-ink">
               {item.label}
@@ -56,7 +59,7 @@ import { brand, nav, cta } from '../content/site';
       }
       <li>
         <a href="#calc" class="mt-2 block rounded-full bg-ink px-4 py-2.5 text-center text-sm font-medium text-canvas">
-          {cta.calc}
+          {t.cta.calc}
         </a>
       </li>
     </ul>

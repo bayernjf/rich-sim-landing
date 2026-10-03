@@ -1,20 +1,22 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { pricing } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <section id="pricing" class="border-y border-line bg-panel-2/40">
   <div class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
     <div class="max-w-[60ch]" data-reveal>
       <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-        {pricing.title}
+        {t.pricing.title}
       </h2>
-      <p class="mt-3 text-sm text-muted">{pricing.note}</p>
+      <p class="mt-3 text-sm text-muted">{t.pricing.note}</p>
     </div>
 
     <div class="mt-12 grid gap-5 lg:grid-cols-3">
       {
-        pricing.tiers.map((tier, i) => (
+        t.pricing.tiers.map((tier, i) => (
           <div
             class:list={[
               'flex flex-col rounded-2xl border p-7',
@@ -29,7 +31,7 @@ import { pricing } from '../content/site';
               <p class="font-sans text-base font-semibold text-ink">{tier.name}</p>
               {tier.highlight && (
                 <span class="rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent">
-                  长期使用
+                  {t.pricing.highlightLabel}
                 </span>
               )}
             </div>

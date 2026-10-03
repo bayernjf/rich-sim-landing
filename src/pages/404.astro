@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { langOf } from '../content/site';
+
+const zh = langOf(Astro.url.pathname) === 'zh';
+const home = zh ? '/zh/' : '/';
+---
+
+<Layout>
+  <main class="grid min-h-[70dvh] place-items-center px-4">
+    <div class="max-w-[42ch] text-center">
+      <p class="num text-7xl font-semibold text-accent">404</p>
+      <h1 class="mt-4 font-sans text-2xl font-semibold text-ink">
+        {langOf(Astro.url.pathname) === 'zh' ? '页面不见了' : 'Page not found'}
+      </h1>
+      <p class="mt-3 text-sm leading-relaxed text-muted">
+        {langOf(Astro.url.pathname) === 'zh'
+          ? '你访问的页面不存在或已被移动。'
+          : 'The page you are looking for does not exist or has been moved.'}
+      </p>
+      <a
+        href={home}
+        class="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.98]"
+      >
+        {langOf(Astro.url.pathname) === 'zh' ? '返回首页' : 'Back to home'}
+      </a>
+    </div>
+  </main>
+</Layout>

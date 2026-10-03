@@ -1,11 +1,13 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { disclaimer } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <section class="mx-auto max-w-[1200px] px-4 pb-20 sm:px-6">
   <div class="flex items-start gap-3 rounded-2xl border border-line bg-panel-2 p-5">
     <Icon name="ph:info" class="mt-0.5 size-5 shrink-0 text-muted" />
-    <p class="max-w-[80ch] text-xs leading-relaxed text-muted">{disclaimer}</p>
+    <p class="max-w-[80ch] text-xs leading-relaxed text-muted">{t.disclaimer}</p>
   </div>
 </section>

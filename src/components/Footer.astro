@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { brand, footer } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <footer class="border-t border-line">
@@ -11,13 +13,13 @@ import { brand, footer } from '../content/site';
       <span class="grid size-6 place-items-center rounded-md bg-accent text-on-accent">
         <Icon name="ph:chart-line-up" class="size-3.5" />
       </span>
-      <span class="font-sans text-sm font-semibold text-ink">{brand.name}</span>
-      <span class="text-xs tracking-wide text-muted">{brand.en}</span>
+      <span class="font-sans text-sm font-semibold text-ink">{t.brand.name}</span>
+      <span class="text-xs tracking-wide text-muted">{t.brand.alt}</span>
     </div>
 
     <ul class="flex flex-wrap gap-x-6 gap-y-2">
       {
-        footer.links.map((link) => (
+        t.footer.links.map((link) => (
           <li>
             <a href={link.href} class="text-sm text-muted transition-colors hover:text-ink">
               {link.label}
@@ -27,6 +29,15 @@ import { brand, footer } from '../content/site';
       }
     </ul>
 
-    <p class="text-xs text-muted">{footer.note}</p>
+    <p class="text-xs text-muted">{t.footer.note}</p>
+
+    <div class="flex gap-5 text-xs text-muted">
+      <a href={langOf(Astro.url.pathname) === 'zh' ? '/zh/privacy/' : '/privacy/'} class="transition-colors hover:text-ink">
+        {langOf(Astro.url.pathname) === 'zh' ? '隐私政策' : 'Privacy'}
+      </a>
+      <a href={langOf(Astro.url.pathname) === 'zh' ? '/zh/terms/' : '/terms/'} class="transition-colors hover:text-ink">
+        {langOf(Astro.url.pathname) === 'zh' ? '使用条款' : 'Terms'}
+      </a>
+    </div>
   </div>
 </footer>

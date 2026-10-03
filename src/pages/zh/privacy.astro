@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { SITE_NAME } from '../../consts';
+---
+
+<Layout
+  title={`隐私政策 · ${SITE_NAME}`}
+  description="财富模拟如何处理你的数据。"
+>
+  <main class="mx-auto max-w-[760px] px-4 py-16 sm:px-6 lg:py-24">
+    <h1 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">隐私政策</h1>
+    <p class="mt-3 text-sm text-muted">最后更新：2026-10-04</p>
+
+    <div class="mt-10 space-y-8 text-sm leading-relaxed text-ink">
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">1. 我们收集什么</h2>
+        <p class="mt-3 text-muted">
+          财富模拟是本地优先的工具。你设计的方案只存储在你设备的浏览器 localStorage 中。
+          我们不设账号，不收集、不上传、不出售你的财务输入。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">2. 汇率数据</h2>
+        <p class="mt-3 text-muted">
+          使用币种换算时，汇率在运行时从公开数据源（Frankfurter，欧洲央行参考汇率）获取。
+          你的输入不会发送给该数据源，仅请求币种对。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">3. 统计分析</h2>
+        <p class="mt-3 text-muted">
+          落地页可能使用基础、隐私友好的统计以计数访问。不会跨站追踪你，也不会建立广告画像。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">4. 第三方链接</h2>
+        <p class="mt-3 text-muted">
+          部分身份剧本数据引用公开来源。我们不对这些外部网站的隐私实践负责。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">5. 你的控制权</h2>
+        <p class="mt-3 text-muted">
+          你可以随时通过清除本网站的浏览器数据来删除已保存的方案。无需注销账号，因为我们从不持有你的数据。
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-sans text-lg font-semibold text-ink">6. 联系方式</h2>
+        <p class="mt-3 text-muted">
+          如有隐私问题，请通过本站链接的 GitHub 仓库联系我们。
+        </p>
+      </section>
+    </div>
+  </main>
+</Layout>

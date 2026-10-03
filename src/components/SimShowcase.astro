@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { sim } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 
 const spanClass: Record<string, string> = {
   wide: 'lg:col-span-2',
@@ -11,14 +13,14 @@ const spanClass: Record<string, string> = {
 <section id="sim" class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
   <div class="max-w-[60ch]" data-reveal>
     <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-      {sim.title}
+      {t.sim.title}
     </h2>
-    <p class="mt-4 text-base leading-relaxed text-muted">{sim.lead}</p>
+    <p class="mt-4 text-base leading-relaxed text-muted">{t.sim.lead}</p>
   </div>
 
   <div class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
     {
-      sim.tiles.map((tile, i) => (
+      t.sim.tiles.map((tile, i) => (
         <article
           class:list={[
             'flex flex-col justify-between gap-8 rounded-2xl border p-6 lg:p-7',

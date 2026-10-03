@@ -1,18 +1,20 @@
 ---
-import { milestones } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <section class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
   <div class="max-w-[60ch]" data-reveal>
     <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-      {milestones.title}
+      {t.milestones.title}
     </h2>
-    <p class="mt-4 text-base leading-relaxed text-muted">{milestones.lead}</p>
+    <p class="mt-4 text-base leading-relaxed text-muted">{t.milestones.lead}</p>
   </div>
 
   <ol class="mt-12 space-y-4">
     {
-      milestones.steps.map((step, i) => (
+      t.milestones.steps.map((step, i) => (
         <li
           class="grid gap-4 rounded-2xl border border-line bg-panel p-6 md:grid-cols-[auto_1fr_1fr] md:items-center md:gap-8 lg:p-7"
           style={`--reveal-delay:${i * 80}ms`}
@@ -31,5 +33,5 @@ import { milestones } from '../content/site';
     }
   </ol>
 
-  <p class="mt-4 text-xs text-muted">{milestones.note}</p>
+  <p class="mt-4 text-xs text-muted">{t.milestones.note}</p>
 </section>

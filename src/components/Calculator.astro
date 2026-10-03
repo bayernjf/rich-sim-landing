@@ -1,21 +1,23 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { calc } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 
 const fields = [
-  { name: 'income', label: calc.fields.income, value: 15000 },
-  { name: 'expense', label: calc.fields.expense, value: 9000 },
-  { name: 'savings', label: calc.fields.savings, value: 80000 },
-  { name: 'target', label: calc.fields.target, value: 3000000 },
+  { name: 'income', label: t.calc.fields.income, value: 15000 },
+  { name: 'expense', label: t.calc.fields.expense, value: 9000 },
+  { name: 'savings', label: t.calc.fields.savings, value: 80000 },
+  { name: 'target', label: t.calc.fields.target, value: 3000000 },
 ];
 ---
 
 <section id="calc" class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
   <div class="max-w-[60ch]" data-reveal>
     <h2 class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl">
-      {calc.title}
+      {t.calc.title}
     </h2>
-    <p class="mt-4 text-base leading-relaxed text-muted">{calc.lead}</p>
+    <p class="mt-4 text-base leading-relaxed text-muted">{t.calc.lead}</p>
   </div>
 
   <div
@@ -28,7 +30,7 @@ const fields = [
           <div class="flex flex-col gap-2">
             <label for={`calc-${field.name}`} class="text-sm font-medium text-ink">
               {field.label}
-              <span class="ml-1 text-xs text-muted">({calc.unit})</span>
+              <span class="ml-1 text-xs text-muted">({t.calc.unit})</span>
             </label>
             <input
               id={`calc-${field.name}`}
@@ -47,7 +49,7 @@ const fields = [
         type="submit"
         class="inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.99]"
       >
-        {calc.submit}
+        {t.calc.submit}
         <Icon name="ph:arrow-right" class="size-4" />
       </button>
     </form>
@@ -57,15 +59,24 @@ const fields = [
       aria-live="polite"
       class="flex min-h-[240px] flex-col justify-center rounded-xl border border-line bg-panel-2 p-6"
     >
-      <p class="text-sm text-muted">{calc.empty}</p>
+      <p class="text-sm text-muted">{t.calc.empty}</p>
     </div>
   </div>
 
-  <p class="mt-4 text-xs leading-relaxed text-muted">{calc.assumption}</p>
-  <p class="mt-1 text-xs leading-relaxed text-muted">{calc.disclaimer}</p>
+  <p class="mt-4 text-xs leading-relaxed text-muted">{t.calc.assumption}</p>
+  <p class="mt-1 text-xs leading-relaxed text-muted">{t.calc.disclaimer}</p>
 </section>
 
-<script type="application/json" id="calc-labels" set:html={JSON.stringify(calc.labels)} />
+<script type="application/json" id="calc-labels" set:html={JSON.stringify({
+  ...t.calc.labels,
+  unit: t.calc.unit,
+  locale: langOf(Astro.url.pathname) === 'zh' ? 'zh-CN' : 'en-US',
+  messages: {
+    impossible: t.calc.impossible,
+    negative: t.calc.negative,
+    done: t.calc.done,
+  },
+})} />
 
 <script>
   type Result =
@@ -74,11 +85,13 @@ const fields = [
 
   const labelsEl = document.getElementById('calc-labels');
   const L = labelsEl ? JSON.parse(labelsEl.textContent ?? '{}') : {};
+  const M = L.messages ?? {};
   const form = document.getElementById('calc-form') as HTMLFormElement | null;
   const out = document.getElementById('calc-result');
   const RATE = 0.04;
+  const SYM = L.unit === '$' ? '$' : '¥ ';
 
-  const money = (n: number) => '¥ ' + Math.round(n).toLocaleString('zh-CN');
+  const money = (n: number) => SYM + Math.round(n).toLocaleString(L.locale ?? 'zh-CN');
 
   function compute(income: number, expense: number, savings: number, target: number): Result {
     const monthly = income - expense;
@@ -119,9 +132,9 @@ const fields = [
     }
 
     const message =
-      result.status === 'negative' ? '你的月支出不低于月收入，当前没有净储蓄。'
-      : result.status === 'done' ? '这个目标已经在你的存款覆盖范围内。'
-      : '按当前储蓄速度，60 年内无法达到这个目标。';
+      result.status === 'negative' ? M.negative
+      : result.status === 'done' ? M.done
+      : M.impossible;
 
     out.innerHTML = `
       <p class="text-sm leading-relaxed text-ink">${message}</p>

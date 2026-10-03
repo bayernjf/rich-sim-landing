@@ -11,6 +11,7 @@
 - 产品应用：将来是独立仓库（暂名 `rich-sim-app`，尚未创建）
 
 `handoff.md` 是连续性文档（状态 / 占位待办 / 与产品文档的关系）——**动手前先读它**。
+分工：**handoff = 状态 + 待办**，**README = 给开发者看的结构与设计约定**，两边不复制同一份内容。
 
 ## 技术栈
 
@@ -71,6 +72,6 @@ src/
 - 不要提交构建产物与依赖：`dist/`、`.astro/`、`node_modules/`、`.env`。
 - 不要引入 React 或其他前端框架（当前刻意保持零框架交互），除非明确要求改架构。
 - 不要用「示意」数字冒充真实数据或真实报价。
-- 提交信息遵守根目录 `git-commit-message.md`：英文 Conventional Commits、按逻辑拆成原子提交、
-  不加 AI co-author、**未经明确要求不 push**。
+- 提交信息遵守根目录 `git-commit-message.md`：英文 `<type>[(<scope>)]: <subject>`、按逻辑拆成原子提交、
+  作者保持用户身份不加 AI co-author、**未经明确要求不 push**。
 - 不要跳过 `git pull --rebase` 直接 push。

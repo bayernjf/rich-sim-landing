@@ -1,6 +1,8 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { faq } from '../content/site';
+import { getCopy, langOf } from '../content/site';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <section id="faq" class="mx-auto max-w-[1200px] px-4 py-20 sm:px-6 lg:py-28">
@@ -9,12 +11,12 @@ import { faq } from '../content/site';
       class="font-sans text-3xl font-semibold tracking-tight text-ink md:text-4xl"
       data-reveal
     >
-      {faq.title}
+      {t.faq.title}
     </h2>
 
     <div class="divide-y divide-line border-y border-line" data-reveal>
       {
-        faq.items.map((item) => (
+        t.faq.items.map((item) => (
           <details class="group py-5">
             <summary class="flex cursor-pointer list-none items-center justify-between gap-6 [&::-webkit-details-marker]:hidden">
               <span class="font-sans text-base font-medium text-ink">{item.q}</span>

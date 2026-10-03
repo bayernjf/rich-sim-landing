@@ -3,20 +3,24 @@ import '@fontsource-variable/space-grotesk';
 import '@fontsource-variable/manrope';
 import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
+import { getCopy, langOf } from '../content/site';
+import { SITE_URL, OG_IMAGE } from '../consts';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = '财富模拟 · 先体验富豪人生，再看清你自己的路',
-  description = '把富人的财富可视化，再用你的真实收入算出：离你想要的生活，还差多远。',
-} = Astro.props;
+const locale = langOf(Astro.url.pathname);
+const t = getCopy(locale);
+const lang = locale === 'zh' ? 'zh-CN' : 'en';
+const og = OG_IMAGE[locale === 'zh' ? 'zh' : 'en'];
+
+const { title = t.seo.title, description = t.seo.description } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="zh-CN">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,6 +31,11 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={SITE_URL + og} />
+    <meta property="og:locale" content={lang} />
+    <link rel="alternate" hreflang="en" href={SITE_URL + '/'} />
+    <link rel="alternate" hreflang="zh" href={SITE_URL + '/zh/'} />
+    <link rel="alternate" hreflang="x-default" href={SITE_URL + '/'} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="min-h-[100dvh]">

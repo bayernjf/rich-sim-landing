@@ -1,18 +1,43 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { langOf } from '../content/site';
 
 // Real component preview (not a fake screenshot): a mini asset dashboard.
-// Numbers are 示意 examples.
-const total = 9400; // 万
-const holdingCost = 168; // 万 / 年
+// Numbers are 示意 / illustrative examples.
+const zh = langOf(Astro.url.pathname) === 'zh';
+
+const total = 9400; // 万 / M
+const holdingCost = 168; // 万 / M per year
+
+const L = zh
+  ? {
+      net: '净资产 · 示意',
+      unit: '万',
+      assets: ['房产', '股权', '基金', '艺术品', '现金'],
+      cost: '年持有成本',
+      gain: '年 +6.2%',
+    }
+  : {
+      net: 'Net worth · illustrative',
+      unit: '',
+      assets: ['Property', 'Equity', 'Funds', 'Art', 'Cash'],
+      cost: 'Yearly holding cost',
+      gain: '+6.2% / yr',
+    };
 
 const assets = [
-  { label: '房产', value: 3200, pct: 34, color: 'var(--c-accent)' },
-  { label: '股权', value: 2800, pct: 30, color: 'var(--c-ink)' },
-  { label: '基金', value: 1900, pct: 20, color: 'var(--c-line-strong)' },
-  { label: '艺术品', value: 900, pct: 10, color: 'color-mix(in oklab, var(--c-line-strong) 60%, transparent)' },
-  { label: '现金', value: 600, pct: 6, color: 'color-mix(in oklab, var(--c-line-strong) 35%, transparent)' },
+  { label: L.assets[0], value: 3200, pct: 34, color: 'var(--c-accent)' },
+  { label: L.assets[1], value: 2800, pct: 30, color: 'var(--c-ink)' },
+  { label: L.assets[2], value: 1900, pct: 20, color: 'var(--c-line-strong)' },
+  { label: L.assets[3], value: 900, pct: 10, color: 'color-mix(in oklab, var(--c-line-strong) 60%, transparent)' },
+  { label: L.assets[4], value: 600, pct: 6, color: 'color-mix(in oklab, var(--c-line-strong) 35%, transparent)' },
 ];
+
+// zh: ¥9,400 万 · en: $94M（示意换算，1M ≈ 100 万）
+const fmt = (v: number) =>
+  zh ? v.toLocaleString('zh-CN') : '$' + (v / 100).toFixed(1).replace(/\.0$/, '') + 'M';
+const fmtCost = (v: number) =>
+  zh ? `¥${v} 万 / 年` : '$' + (v / 100).toFixed(1).replace(/\.0$/, '') + 'M / yr';
 ---
 
 <div
@@ -21,16 +46,16 @@ const assets = [
 >
   <div class="flex items-start justify-between gap-4">
     <div>
-      <p class="text-xs text-muted">净资产 · 示意</p>
+      <p class="text-xs text-muted">{L.net}</p>
       <p class="num mt-1.5 text-3xl font-semibold text-ink">
-        ¥{total.toLocaleString()}<span class="ml-1 text-base font-normal text-muted">万</span>
+        {zh ? '¥' : ''}{fmt(total)}<span class="ml-1 text-base font-normal text-muted">{L.unit}</span>
       </p>
     </div>
     <span
       class="inline-flex items-center gap-1 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent"
     >
       <Icon name="ph:trend-up" class="size-3.5" />
-      年 +6.2%
+      {L.gain}
     </span>
   </div>
 
@@ -48,14 +73,14 @@ const assets = [
         <li class="flex items-center gap-2">
           <span class="size-2 shrink-0 rounded-full" style={`background:${asset.color}`}></span>
           <span class="text-xs text-muted">{asset.label}</span>
-          <span class="num ml-auto text-xs text-ink">{asset.value.toLocaleString()}</span>
+          <span class="num ml-auto text-xs text-ink">{fmt(asset.value)}</span>
         </li>
       ))
     }
   </ul>
 
   <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
-    <span class="text-xs text-muted">年持有成本</span>
-    <span class="num text-sm text-ink">¥{holdingCost} 万 / 年</span>
+    <span class="text-xs text-muted">{L.cost}</span>
+    <span class="num text-sm text-ink">{fmtCost(holdingCost)}</span>
   </div>
 </div>

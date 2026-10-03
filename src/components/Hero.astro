@@ -1,7 +1,9 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { hero, cta } from '../content/site';
+import { getCopy, langOf } from '../content/site';
 import AssetPreview from './AssetPreview.astro';
+
+const t = getCopy(langOf(Astro.url.pathname));
 ---
 
 <section id="top" class="relative overflow-hidden">
@@ -20,24 +22,24 @@ import AssetPreview from './AssetPreview.astro';
       <h1
         class="font-sans text-4xl leading-[1.12] font-semibold tracking-tight text-ink md:text-5xl"
       >
-        {hero.headline[0]}<br class="hidden md:block" />{hero.headline[1]}
+        {t.hero.headline[0]}<br class="hidden md:block" />{t.hero.headline[1]}
       </h1>
       <p class="mt-6 max-w-[42ch] text-base leading-relaxed text-muted md:text-lg">
-        {hero.sub}
+        {t.hero.sub}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a
           href="#sim"
           class="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.98]"
         >
-          {cta.sim}
+          {t.cta.sim}
           <Icon name="ph:arrow-right" class="size-4" />
         </a>
         <a
           href="#calc"
           class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-panel-2"
         >
-          {cta.calc}
+          {t.cta.calc}
         </a>
       </div>
     </div>

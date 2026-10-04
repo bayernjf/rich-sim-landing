@@ -15,6 +15,11 @@ export function langOf(pathname: string): 'en' | 'zh' {
   return pathname.startsWith('/zh/') ? 'zh' : 'en';
 }
 
+/** The product app (rich-sim repo, Cloudflare Pages). This is the landing
+ *  page's only outbound link, so it must move with the custom-domain decision
+ *  (rich-sim docs/deferred-items.md #2). */
+export const APP_URL = 'https://rich-sim.pages.dev';
+
 const en = {
   brand: {
     name: 'WEALTH SIM',
@@ -34,6 +39,7 @@ const en = {
   cta: {
     sim: 'Try the rich life',
     calc: 'Calculate now',
+    app: 'Open the app',
   },
   hero: {
     headline: ['Try on a rich life first,', 'then see your own path'],
@@ -238,6 +244,7 @@ const zh = {
   cta: {
     sim: '体验富豪人生',
     calc: '开始测算',
+    app: '打开应用',
   },
   hero: {
     headline: ['先体验一次富豪人生，', '再看清你自己的路'],

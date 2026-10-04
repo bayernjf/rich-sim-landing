@@ -18,7 +18,7 @@ export function langOf(pathname: string): 'en' | 'zh' {
 /** The product app (rich-sim repo, Cloudflare Pages). This is the landing
  *  page's only outbound link, so it must move with the custom-domain decision
  *  (rich-sim docs/deferred-items.md #2). */
-export const APP_URL = 'https://rich-sim.pages.dev';
+export const APP_URL = 'https://app.rich-sim.bayjf.com';
 
 const en = {
   brand: {

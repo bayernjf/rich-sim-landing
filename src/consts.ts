@@ -1,14 +1,14 @@
 /** Site-level constants. The SEO component, sitemap and Astro config all read
  *  from here so the public URL only ever lives in one place. */
 
-export const SITE_URL = "https://rich-sim-landing.pages.dev";
+export const SITE_URL = "https://rich-sim.bayjf.com";
 
 export const SITE_NAME = "Rich Sim";
 export const AUTHOR = "bayernjf";
 
 export const SOCIAL = {
   github: "https://github.com/bayernjf/rich-sim-landing",
-  // TODO(deferred #2): 正式域名与联系邮箱待定后补齐 email
+  // TODO(deferred #2): 联系邮箱待定后补齐 email
 } as const;
 
 export const BRAND_MARK = "/favicon.svg";

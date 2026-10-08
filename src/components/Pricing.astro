@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getCopy, langOf } from '../content/site';
+import { getCopy, langOf, APP_URL } from '../content/site';
 
 const t = getCopy(langOf(Astro.url.pathname));
 ---
@@ -51,7 +51,7 @@ const t = getCopy(langOf(Astro.url.pathname));
             </ul>
 
             <a
-              href="#calc"
+              href={i === 0 ? `${APP_URL}/app/designer` : '#calc'}
               class:list={[
                 'mt-7 inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition-transform active:scale-[0.98]',
                 tier.highlight

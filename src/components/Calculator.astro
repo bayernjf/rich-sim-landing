@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getCopy, langOf } from '../content/site';
+import { getCopy, langOf, APP_URL } from '../content/site';
 
 const t = getCopy(langOf(Astro.url.pathname));
 
@@ -61,6 +61,16 @@ const fields = [
     >
       <p class="text-sm text-muted">{t.calc.empty}</p>
     </div>
+  </div>
+
+  <div class="mt-6" data-reveal>
+    <a
+      href={`${APP_URL}/app/designer`}
+      class="inline-flex items-center gap-2 rounded-full border border-line-strong px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-panel-2"
+    >
+      {t.cta.continueApp}
+      <Icon name="ph:arrow-right" class="size-4" />
+    </a>
   </div>
 
   <p class="mt-4 text-xs leading-relaxed text-muted">{t.calc.assumption}</p>

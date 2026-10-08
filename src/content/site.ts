@@ -40,6 +40,8 @@ const en = {
     sim: 'Try the rich life',
     calc: 'Calculate now',
     app: 'Open the app',
+    claimApp: 'Claim your $1,000,000 virtual capital',
+    continueApp: 'Run the full calculation in the app',
   },
   hero: {
     headline: ['Try on a rich life first,', 'then see your own path'],
@@ -245,6 +247,8 @@ const zh = {
     sim: '体验富豪人生',
     calc: '开始测算',
     app: '打开应用',
+    claimApp: '领取 $1,000,000 虚拟起始金',
+    continueApp: '在应用里做完整测算',
   },
   hero: {
     headline: ['先体验一次富豪人生，', '再看清你自己的路'],

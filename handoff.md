@@ -24,6 +24,7 @@
 - ✅ **合规页**：404 / Privacy / Terms 均有 en + zh 双语版本
 - ✅ **SEO**：sitemap、robots.txt、hreflang
 - ✅ **OG/Preview 截图**：`scripts/shot.mjs` 每次构建用 Playwright 截 `preview-en.png` / `preview-zh.png`
+- ✅ **导流改造（2026-10-08）**：全站从「只有导航栏一个出口」改为 4 处指向 app——Hero 主 CTA「领取 $1,000,000 虚拟起始金」→ `APP_URL`、SimShowcase 底部同款 CTA、Calculator 结果区「在应用里做完整测算」→ `APP_URL/app/designer`、Pricing 免费档「Calculate now」→ `APP_URL/app/designer`；付费档 CTA 维持 `#calc` 页内锚点（付费功能未上线，不导流）。文案新增 `cta.claimApp` / `cta.continueApp` 双语 key
 - **分支**：`dev`（开发）+ `main`（生产）。同步状态用 `git status` 现测，不写死在这里
 - 构建产物 `dist/`（已 gitignore）
 

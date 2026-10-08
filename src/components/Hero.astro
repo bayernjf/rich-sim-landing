@@ -1,6 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getCopy, langOf } from '../content/site';
+import { getCopy, langOf, APP_URL } from '../content/site';
 import AssetPreview from './AssetPreview.astro';
 
 const t = getCopy(langOf(Astro.url.pathname));
@@ -29,10 +29,10 @@ const t = getCopy(langOf(Astro.url.pathname));
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a
-          href="#sim"
+          href={APP_URL}
           class="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-transform hover:brightness-105 active:scale-[0.98]"
         >
-          {t.cta.sim}
+          {t.cta.claimApp}
           <Icon name="ph:arrow-right" class="size-4" />
         </a>
         <a

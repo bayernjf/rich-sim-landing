@@ -79,8 +79,8 @@ const en = {
       },
       {
         icon: 'ph:shopping-cart',
-        title: 'Shopping & bill day',
-        body: 'Add a yacht to the cart and watch next year\u2019s bill turn red. One click turns the cart into your real-life goal.',
+        title: 'Shopping, bill day & resale',
+        body: 'Add a yacht to the cart and watch next year\u2019s bill turn red. Bill too heavy? Resell it for cash relief. Buy, carry, sell — the full cost-of-ownership loop.',
         tone: 'plain',
       },
       {
@@ -305,8 +305,8 @@ const zh = {
       },
       {
         icon: 'ph:shopping-cart',
-        title: '模拟购物与账单日',
-        body: '往购物车里加一艘游艇，看下一期账单变红；一键把这车生活变成你的真实测算目标。',
+        title: '购物、账单日与二手变卖',
+        body: '往购物车里加一艘游艇，看下一期账单变红；账单太疼就二手卖掉回血——买、扛、卖，一轮走完持有成本。',
         tone: 'plain',
       },
       {
